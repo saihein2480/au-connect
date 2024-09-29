@@ -6,11 +6,6 @@ import Contact from '@/app/models/Contact';
 import fs from 'fs';
 import path from 'path';
 
-export const config = {
-  api: {
-    bodyParser: false, // Disables body parsing to handle form-data
-  },
-};
 
 // GET: Fetch all contacts
 export async function GET() {
