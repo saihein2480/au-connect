@@ -1,13 +1,17 @@
 # AU Connect
 
-AU Connect is a web-based platform designed to enhance communication within the Assumption University community. It provides tools for managing announcements, user profiles, and contacts, with separate functionalities for admins and regular users. The platform is designed to be scalable and secure, with role-based access control.
+## App Description
+
+   AU Connect is a web-based platform designed to enhance communication within the Assumption University community. It provides tools for managing announcements, user profiles, and contacts, with separate functionalities for admins and regular users. The platform is designed to be scalable and secure, with role-based access control.
+
+   "We developed the project locally and deployed it on a GitHub page and Vercel, sharing the links. Please note that the contributions were not made through GitHub."
 
 ---
 
 ## Team Member
 
-1.  SAI HEIN THU YA SOE
-2.  GEORGE OBINNA OGUEJIOFOR
+1.  SAI HEIN THU YA SOE - https://github.com/saihein2480/au-connect
+2.  GEORGE OBINNA OGUEJIOFOR - https://github.com/oGeorge88/au-connect3.git
 
 ---
 
@@ -246,3 +250,33 @@ Improved Pagination: Add infinite scrolling or more advanced pagination for anno
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 This detailed `README.md` explains the project, how to set it up, and walks through the core functionalities. It also covers error handling and potential improvements, ensuring anyone taking over can understand the project and contribute effectively.
+
+---
+
+# Home Page
+
+![Screenshot 2024-09-29 191223](https://github.com/user-attachments/assets/69f830da-7717-4865-868c-483d04893f04)
+
+# Sign Up
+![Screenshot 2024-09-29 191234](https://github.com/user-attachments/assets/7f2684d0-0081-4fbb-8d6b-575cfc64f9fb)
+
+# Log In
+![Screenshot 2024-09-29 191240](https://github.com/user-attachments/assets/996aa04a-2b9b-49e8-8a43-8b6cd94fac85)
+
+# Admin Home Page
+![Screenshot 2024-09-29 191300](https://github.com/user-attachments/assets/f0d97f22-d484-4fa2-8e61-7238655cd422)
+
+# Admin Profile Page
+![Screenshot 2024-09-29 191308](https://github.com/user-attachments/assets/9337f5a4-6459-4585-96b5-6b331277bce6)
+
+# Admin Contact Page
+![Screenshot 2024-09-29 191314](https://github.com/user-attachments/assets/3330c837-1ef8-4961-9de3-64fdd1576411)
+
+# User Home Page
+![Screenshot 2024-09-29 191427](https://github.com/user-attachments/assets/7bc15341-8a72-49f8-8eb7-63fc17db8f94)
+
+# User Profile Page
+![Screenshot 2024-09-29 191433](https://github.com/user-attachments/assets/286aa7b8-3193-4b46-8315-19349735440c)
+
+# User Contact Page
+![Screenshot 2024-09-29 191445](https://github.com/user-attachments/assets/58e808ac-1697-46db-a848-fbd1d83ca4dc)
