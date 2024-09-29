@@ -4,6 +4,13 @@ AU Connect is a web-based platform designed to enhance communication within the 
 
 ---
 
+## Team Member
+
+1.  SAI HEIN THU YA SOE
+2.  GEORGE OBINNA OGUEJIOFOR
+
+---
+
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
@@ -103,12 +110,16 @@ Ensure that you have the following installed on your machine:
    npm run dev
    ```
 
+---
+
 ## Environment Variables
 
 Required Variables
 MONGODB_URI: MongoDB connection string (replace your_mongodb_connection_string with your actual connection string).
 NEXT_PUBLIC_API_BASE_URL: Base URL of the API (defaults to http://localhost:3000 for local development).
 CREATE_ADMIN_VERIFY: A verification code required for creating admin accounts during signup.
+
+---
 
 ## API Endpoints
 
@@ -148,19 +159,25 @@ POST /api/profile Create a new profile Admin
 PUT /api/profile/[id] Update a user profile by ID User/Admin
 DELETE /api/profile/[id] Delete a profile by ID Admin
 
+---
+
 ## Running the Project
 
 ### Running the Frontend
 
 To start the frontend (Next.js) development server:
-`    npm run dev
-   `
+`   npm run dev
+  `
 
 This will start the frontend on <http://localhost:3000>.
+
+---
 
 ## Running the Backend
 
 The backend is integrated within the Next.js framework (API routes). No separate server is required.
+
+---
 
 ## Folder Structure
 
@@ -175,6 +192,8 @@ The backend is integrated within the Next.js framework (API routes). No separate
 │ └── layout.js # Global layout (Navbar, Footer)
 └── public
 └── uploads # Stores uploaded images (profile pictures, cover images)
+
+---
 
 ## Project Walkthrough
 
@@ -194,6 +213,8 @@ User: Users can view and bookmark announcements for quick access.
 User: Each user can view and edit their own profile, including updating their display name, email, and password.
 Admin: Admins can view, add, edit, and delete profiles of all users.
 
+---
+
 ## Admin vs User Functionalities
 
 #### Feature Admin User
@@ -202,10 +223,14 @@ Announcements Create, Edit, Delete View, Bookmark
 Profile View/Add/Edit/Delete all View/Edit own
 Contacts Add, Edit, Delete View
 
+---
+
 ## Error Handling
 
 Error Boundary: React components are wrapped in an ErrorBoundary to gracefully catch and display any unexpected errors during rendering.
 Backend Errors: Each API route returns a clear and descriptive error message if something goes wrong (e.g., invalid input, database connection failure).
+
+---
 
 ## Future Improvements
 
@@ -214,6 +239,8 @@ Notification System: Add real-time notifications to inform users of new announce
 Role-Based Permissions: Expand the permissions system to allow for more granular access control (e.g., editors, moderators).
 File Management: Implement a file storage service like AWS S3 for handling cover images and profile pictures more efficiently.
 Improved Pagination: Add infinite scrolling or more advanced pagination for announcements and contacts.
+
+---
 
 ## License
 

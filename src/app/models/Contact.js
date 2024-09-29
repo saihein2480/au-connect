@@ -1,17 +1,27 @@
 // src/app/models/Contact.js
+
 import mongoose from 'mongoose';
 
-const contactSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  faculty: { type: String, required: true },
-  role: { type: String, required: true },
-  department: { type: String },
-  email: { type: String },
-  phone: { type: String },
-  facebook: { type: String },
-  line: { type: String },
-  profilePicture: { type: String },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // Admin who created
+const ContactSchema = new mongoose.Schema({
+  name: String,
+  faculty: String,
+  role: String,
+  department: String,
+  email: String,
+  phone: String,
+  facebook: String,
+  line: String,
+  gender: String,
+  profilePicture: String,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId, // Keep as ObjectId
+    required: true,
+    ref: 'User', // Reference the User model (or admin model if separate)
+  },
 });
 
-export default mongoose.models.Contact || mongoose.model('Contact', contactSchema);
+
+
+const Contact = mongoose.models.Contact || mongoose.model('Contact', ContactSchema);
+
+export default Contact;

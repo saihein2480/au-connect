@@ -1,5 +1,3 @@
-// src/app/contacts/page.js
-
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -18,18 +16,19 @@ export default function ContactPage() {
     phone: "",
     facebook: "",
     line: "",
+    gender: "",
   });
   const [profilePicture, setProfilePicture] = useState(null);
   const [editingContact, setEditingContact] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // For search input
-  const [sortField, setSortField] = useState("name"); // Default sort field
-  const [sortOrder, setSortOrder] = useState("asc"); // Default sort order (ascending)
-  const [currentPage, setCurrentPage] = useState(1); // For pagination
-  const [inputPage, setInputPage] = useState(""); // Input for jump to specific page
-  const contactsPerPage = 5; // Contacts per page
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortField, setSortField] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [inputPage, setInputPage] = useState("");
+  const contactsPerPage = 5;
 
   useEffect(() => {
     fetchContacts();
@@ -40,16 +39,12 @@ export default function ContactPage() {
     try {
       setLoadingContacts(true);
       const response = await fetch(`/api/contacts`);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch contacts");
-      }
+      if (!response.ok) throw new Error("Failed to fetch contacts");
 
       const data = await response.json();
       setContacts(data);
-      setFilteredContacts(data); // Initially set the filtered contacts
+      setFilteredContacts(data);
     } catch (error) {
-      console.error("Error fetching contacts:", error);
       setError("Failed to load contacts. Please try again later.");
     } finally {
       setLoadingContacts(false);
@@ -63,8 +58,8 @@ export default function ContactPage() {
 
   // Save contact (create or update)
   const handleSaveContact = async () => {
-    if (!newContact.name || !newContact.faculty || !newContact.role) {
-      setError("Name, Faculty, and Role are required.");
+    if (!newContact.name || !newContact.faculty || !newContact.role || !newContact.gender) {
+      setError("Name, Faculty, Role, and Gender are required.");
       return;
     }
 
@@ -102,7 +97,6 @@ export default function ContactPage() {
           : [updatedContact, ...prev]
       );
 
-      // Reset form after save
       setNewContact({
         name: "",
         faculty: "",
@@ -112,12 +106,12 @@ export default function ContactPage() {
         phone: "",
         facebook: "",
         line: "",
+        gender: "",
       });
       setProfilePicture(null);
       setEditingContact(null);
-      fetchContacts(); // Refresh contacts list
+      fetchContacts(); // Refresh contact list
     } catch (error) {
-      console.error("Error saving contact:", error);
       setError("Error saving contact. Please try again.");
     } finally {
       setIsLoading(false);
@@ -130,12 +124,10 @@ export default function ContactPage() {
       const response = await fetch(`/api/contacts/${id}`, {
         method: "DELETE",
       });
-
       if (!response.ok) throw new Error("Failed to delete contact");
 
       setContacts((prev) => prev.filter((contact) => contact._id !== id));
     } catch (error) {
-      console.error("Error deleting contact:", error);
       setError("Failed to delete contact. Please try again.");
     }
   };
@@ -159,11 +151,10 @@ export default function ContactPage() {
         if (fieldA > fieldB) return sortOrder === "asc" ? 1 : -1;
         return 0;
       });
-    
+
     setFilteredContacts(filtered);
   }, [searchTerm, sortField, sortOrder, contacts]);
 
-  // Handle pagination
   const indexOfLastContact = currentPage * contactsPerPage;
   const indexOfFirstContact = indexOfLastContact - contactsPerPage;
   const currentContacts = filteredContacts.slice(
@@ -181,7 +172,6 @@ export default function ContactPage() {
   const jumpToPage = () => {
     const pageNumber = parseInt(inputPage, 10);
     const totalPages = Math.ceil(filteredContacts.length / contactsPerPage);
-
     if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
       setError("");
@@ -306,6 +296,17 @@ export default function ContactPage() {
             }
           />
 
+          <label className="block text-xl font-medium mb-2">Gender</label>
+          <input
+            type="text"
+            placeholder="Gender"
+            className="mb-4 p-3 border rounded w-full"
+            value={newContact.gender}
+            onChange={(e) =>
+              setNewContact({ ...newContact, gender: e.target.value })
+            }
+          />
+
           <label className="block text-xl font-medium mb-2">
             Profile Picture
           </label>
@@ -375,14 +376,18 @@ export default function ContactPage() {
             >
               {contact.profilePicture && (
                 <div className="relative flex justify-center items-center">
+                <div className="relative w-40 h-40">
                   <Image
                     src={`/uploads/${contact.profilePicture}`}
                     alt={contact.name}
-                    width={150}
-                    height={150}
-                    className="rounded-full object-cover"
+                    layout="fill" // Ensure it fills the container
+                    objectFit="cover" // Ensures the image covers the area without being distorted
+                    className="rounded-full border-4 border-white shadow-lg" // Rounded with a border and shadow
                   />
+                  
                 </div>
+              </div>
+              
               )}
 
               <div className="p-6">
@@ -422,6 +427,7 @@ export default function ContactPage() {
                           phone: contact.phone,
                           facebook: contact.facebook,
                           line: contact.line,
+                          gender: contact.gender,
                         });
                       }}
                       className="py-2 px-4 bg-green-500 hover:bg-green-700 text-white font-bold rounded"
@@ -461,7 +467,8 @@ export default function ContactPage() {
         </button>
 
         <span className="py-2 px-4 font-bold text-gray-700">
-          Page {currentPage} of {Math.ceil(filteredContacts.length / contactsPerPage)}
+          Page {currentPage} of{" "}
+          {Math.ceil(filteredContacts.length / contactsPerPage)}
         </span>
 
         <input

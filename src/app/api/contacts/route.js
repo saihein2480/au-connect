@@ -1,11 +1,10 @@
-// src/app/api/contacts/route.js
-
 import { NextResponse } from 'next/server';
 import dbConnect from '@/app/utils/dbConnect';
 import Contact from '@/app/models/Contact';
 import fs from 'fs';
 import path from 'path';
-
+import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 // GET: Fetch all contacts
 export async function GET() {
@@ -23,7 +22,7 @@ export async function GET() {
 export async function POST(req) {
   try {
     await dbConnect();
-    
+
     const formData = await req.formData();
     const name = formData.get('name');
     const faculty = formData.get('faculty');
@@ -33,9 +32,10 @@ export async function POST(req) {
     const phone = formData.get('phone');
     const facebook = formData.get('facebook');
     const line = formData.get('line');
+    const gender = formData.get('gender');
     const profilePicture = formData.get('profilePicture');
 
-    if (!name) {
+    if (!name || !faculty || !role || !gender) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
@@ -45,15 +45,16 @@ export async function POST(req) {
     }
 
     let profilePicturePath = null;
-
     if (profilePicture && profilePicture.size > 0) {
       const profilePictureName = `${Date.now()}-${profilePicture.name}`;
       const filePath = path.join(uploadDir, profilePictureName);
       const fileBuffer = Buffer.from(await profilePicture.arrayBuffer());
       fs.writeFileSync(filePath, fileBuffer);
-      profilePicturePath = `${profilePictureName}`;
+      profilePicturePath = `${profilePictureName}`; // Store the path of the uploaded file
     }
 
+    // Correctly instantiating the ObjectId
+    const adminId = new ObjectId('64a7e91e8f29d14fca8a4b34'); // Replace with a valid ObjectId
     const newContact = new Contact({
       name,
       faculty,
@@ -63,7 +64,9 @@ export async function POST(req) {
       phone,
       facebook,
       line,
-      profilePicture: profilePicturePath,
+      gender,
+      profilePicture: profilePicturePath, // Save the file path
+      createdBy: adminId, // Pass the ObjectId of the admin/user
     });
 
     await newContact.save();
